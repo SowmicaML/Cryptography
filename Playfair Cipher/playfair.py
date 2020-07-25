@@ -1,9 +1,8 @@
-
+#initializing 5X5 matrix with 0 value
 def matrix(x,y,initial):
     return [[initial for i in range(x)] for j in range(y)]
-    
 
-
+#To find the location of char in the matrix   
 def locindex(c): 
     loc=list()
     if c=='J':
@@ -14,7 +13,7 @@ def locindex(c):
                 loc.append(i)
                 loc.append(k)
                 return loc
-            
+ #encrypt function           
 def encrypt():  
     msg=str(input("ENTER MSG : "))
     msg=msg.upper()
@@ -33,14 +32,17 @@ def encrypt():
         loc=locindex(msg[i])
         loc1=list()
         loc1=locindex(msg[i+1])
-        if loc[1]==loc1[1]:
+        #characters in same column
+        if loc[1]==loc1[1]: 
             print("{}{}".format(my_matrix[(loc[0]+1)%5][loc[1]],my_matrix[(loc1[0]+1)%5][loc1[1]]),end=' ')
+        #characters in same row
         elif loc[0]==loc1[0]:
             print("{}{}".format(my_matrix[loc[0]][(loc[1]+1)%5],my_matrix[loc1[0]][(loc1[1]+1)%5]),end=' ')  
+        #characters in diff row and diff column
         else:
             print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=' ')    
         i=i+2        
-                 
+#decrypt function                
 def decrypt():  
     msg=str(input("ENTER CIPHER TEXT:"))
     msg=msg.upper()
@@ -52,10 +54,13 @@ def decrypt():
         loc=locindex(msg[i])
         loc1=list()
         loc1=locindex(msg[i+1])
+         #characters in same column
         if loc[1]==loc1[1]:
             print("{}{}".format(my_matrix[(loc[0]-1)%5][loc[1]],my_matrix[(loc1[0]-1)%5][loc1[1]]),end=' ')
+        #characters in same row
         elif loc[0]==loc1[0]:
             print("{}{}".format(my_matrix[loc[0]][(loc[1]-1)%5],my_matrix[loc1[0]][(loc1[1]-1)%5]),end=' ')  
+        #characters in diff row and diff column
         else:
             print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=' ')    
         i=i+2
@@ -65,11 +70,12 @@ key=input("Enter key : ")
 key=key.replace(" ", "")
 key=key.upper()
 
+#Initializing list with key and rest of the alphabets
 result=[]
 for c in key: 
     if c not in result:
         if c=='J':
-            result.append('I')
+            result.append('I')  #I and J are of same frequency
         else:
             result.append(c)
 
@@ -81,6 +87,8 @@ for ch in alphabet:
            
 k=0
 my_matrix=matrix(5,5,0)
+
+#Initializing matrix
 for i in range(0,5): 
     for j in range(0,5):
         my_matrix[i][j]=result[k]
